@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+
+  dbmongo:
+    image: mongo:6.0
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - backend
+    env_file: .env
+    volumes:
+      - dbbankdata:/data/db
+
+  bankapi:
+    build:
+      dockerfile: Dockerfile_bank
+    ports:
+      - 8000:5000
+    depends_on:
+      - dbmongo
+    volumes:
+      - ./bankSrc:/src
+    networks:
+      - frontend
+      - backend
+    env_file: .env
+
+  invoiceapi:
+    build:
+      dockerfile: Dockerfile_invoiceGeneration
+    ports:
+      - 8001:5000
+    volumes:
+      - ./invGenSrc:/src
+    networks:
+      - frontend
+      - backend
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  dbbankdata:
