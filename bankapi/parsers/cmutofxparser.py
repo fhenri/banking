@@ -49,7 +49,7 @@ class CMUTOFXParser(AbstractBankParser):
                     tx["_id"]              = itx.fitid;
                     tx["Description"]      = itx.name;
                     tx["Comment"]          = "";
-                    tx["Categories"]       = trules.get_category_for_transaction(itx.name);
+                    tx["Categories"]       = trules.get_category_for_transaction(itx.dtposted, itx.name);
                     tx["MoneyOut"]         = -itx.trnamt if itx.trntype=='DEBIT' else 0
                     tx["MoneyIn"]          = itx.trnamt if itx.trntype=='CREDIT' else 0
                     tx["Balance"]          = 0

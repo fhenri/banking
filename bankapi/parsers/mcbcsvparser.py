@@ -64,7 +64,8 @@ class MCBCSVParser(bankparser.AbstractBankParser):
                     tx["_id"]              = row[2];
                     tx["Description"]      = row[3];
                     tx["Comment"]          = "";
-                    tx["Categories"]       = trules.get_category_for_transaction(row[3]);
+                    #tx["Categories"]       = trules.get_category_for_transaction(row[3]);
+                    tx["Categories"]       = trules.get_category_for_transaction(row[0], row[3]);
                     tx["MoneyOut"]         = row[4].replace(',', '');
                     tx["MoneyIn"]          = row[5].replace(',', '');
                     tx["Balance"]          = row[6].replace(',', '');

@@ -39,6 +39,7 @@ def upload_transaction_file():
         parser.parse(bank_file_location);
     except Exception as e:
         print(e)
+        raise e
         return json.dumps({'imported': False, 'error': str(e)}), 500, {'ContentType':'application/json'}
 
     return json.dumps({'imported':True}), 200, {'ContentType':'application/json'}

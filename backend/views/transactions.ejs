@@ -29,7 +29,7 @@
                 <input type="text" value="Enter bank name ..." name="actBankName"/>
                 <input type="text" readonly="readonly" value="<%= accountSelectedId %>" name="actNumber"/>
                 <% } %>
-                <input type="text" value="<%= accountSelected.Description %>" name="actDescription"/>
+                <input type="text" value="<%= accountSelected.Description != null ? accountSelected.Description : '' %>" name="actDescription"/>
                 <input type="text" value="<%= accountSelected.Currency %>" name="actCurrency"/>
                 <button type="submit">Update Account</button>
             </form>
