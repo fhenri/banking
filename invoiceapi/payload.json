@@ -1,0 +1,20 @@
+{
+  "main": {
+    "id": "INV-000105",
+    "invoice_date": "05-04-2024"
+  },
+  "invoices": [
+    {
+      "internal": "16000-USD",
+      "amount": "16,000.00",
+      "currency": "USD",
+      "IBAN": "GB74BARC20199043573300"
+    },
+    {
+      "internal": "10000-USD",
+      "amount": "10,000.00",
+      "currency": "USD",
+      "IBAN": "MU39 MCBL0901 000450784754 000 MUR"
+    }
+  ]
+}

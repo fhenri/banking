@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="../invoice.zoho.css">
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <div class="pcs-template ">
+
+    <div class="pcs-template-header pcs-header-content" id="header">
+      <div class="pcs-template-fill-emptydiv"></div>
+    </div>
+
+    <div class="pcs-template-body">
+      <table style="width:100%;table-layout: fixed;">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top; width:50%;">
+              <div>
+                <img src="../image1.png" style="width:165px;height:165px;" id="logo_content">
+              </div>
+              <span class="pcs-orgname"><b>Frederic Henri</b></span><br>
+              <span class="pcs-label">
+                <div>Lot 8 Villas Belombra</div>
+                <div>Chemin 20 Pieds Grand Baie</div>
+                <div>Pereybere</div>
+                <div>Mauritius</div>
+              </span>
+            </td>
+
+            <td style="width:50%;" class="text-align-right v-top">
+              <span class="pcs-entity-title">Invoice</span><br>
+              <span id="tmp_entity_number" class="pcs-invoice-id"><b># {{ id }}</b></span>
+
+              <div style="clear:both;margin-top:20px;">
+                <span style="font-size:18pt;"><b>Balance Due</b></span>
+                <table style="width:100%;table-layout: fixed;">
+                  <tr>
+                    <td style="width:85%;" class="text-align-right v-top">
+                      Amount:
+                    </td>
+                    <td>
+                      <b>{{ amount }}</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:85%;" class="text-align-right v-top">
+                      Currency:
+                    </td>
+                    <td>
+                      <b>{{ currency }}</b>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table style="clear:both;width:100%;margin-top:30px;table-layout:fixed;">
+        <tbody>
+          <tr>
+            <td style="width:60%;vertical-align:bottom;word-wrap: break-word;">
+              <div class="billto-section">
+                <label style="font-size: 10pt;" class="pcs-label" id="tmp_billing_address_label">Bill To</label>
+                <br>
+                <span class="pcs-customer-name" id="zb-pdf-customer-detail"><b>DELIT.SK S. R.O</b></span>
+                <span id="tmp_billing_address">
+                  <div>Sputnikovà</div>
+                  <div>Bratislava</div>
+                  <div>SK-821 02</div>
+                  <div>Slovakia</div>
+                  <div>SK2022609743</div>
+                </span>
+              </div>
+            </td>
+            <td align="right" style="vertical-align:bottom;width: 40%;">
+              <table style="float:right;width: 100%;table-layout: fixed;word-wrap: break-word;" border="0"
+                cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td style="padding:5px 10px 5px 0px;font-size:10pt;" class="text-align-right">
+                      <span class="pcs-label">Invoice Date :</span>
+                    </td>
+                    <td class="text-align-right">
+                      <span id="tmp_entity_date">{{ invoice_date }}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:5px 10px 5px 0px;font-size: 10pt;" class="text-align-right">
+                      <span class="pcs-label">Terms :</span>
+                    </td>
+                    <td class="text-align-right">
+                      <span id="tmp_payment_terms">Net 150</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:5px 10px 5px 0px;font-size: 10pt;" class="text-align-right">
+                      <span class="pcs-label">Due Date :</span>
+                    </td>
+                    <td class="text-align-right">
+                      <span id="tmp_due_date">{{ invoice_due_date }}</span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:5px 10px 5px 0px;font-size: 10pt;" class="text-align-right">
+                      <span class="pcs-label" id="tmp_entity_cflabel">Currency :</span>
+                    </td>
+                    <td class="text-align-right">
+                      <span id="tmp_entity_cfvalue">{{ currency }}</span>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <table style="width:100%;margin-top:20px;table-layout:fixed;" class="pcs-itemtable" border="0" cellspacing="0"
+        cellpadding="0">
+        <thead>
+          <tr style="height:32px;">
+            <td style="padding: 5px 0px 5px 5px;width: 5%;text-align: center;" id=""
+              class="pcs-itemtable-header pcs-itemtable-breakword">
+              #
+            </td>
+            <td style="padding: 5px 10px 5px 20px;width: ;text-align: left;" id=""
+              class="pcs-itemtable-header pcs-itemtable-breakword">
+              Item &amp; Description
+            </td>
+            <td style="padding: 5px 10px 5px 5px;width: 11%;text-align: right;" id=""
+              class="pcs-itemtable-header pcs-itemtable-breakword">
+              Qty
+            </td>
+            <td style="padding: 5px 10px 5px 5px;width: 11%;text-align: right;" id=""
+              class="pcs-itemtable-header pcs-itemtable-breakword">
+              Rate
+            </td>
+            <td style="padding: 5px 10px 5px 5px;width: 15%;text-align: right;" id=""
+              class="pcs-itemtable-header pcs-itemtable-breakword">
+              Amount
+            </td>
+
+          </tr>
+        </thead>
+        <tbody class="itemBody">
+          <tr class="breakrow-inside breakrow-after">
+            <td rowspan="1" valign="top" style="padding: 10px 0 10px 5px;text-align: center;word-wrap: break-word;"
+              class="pcs-item-row">
+              1
+            </td>
+            <td rowspan="1" valign="top" style="padding: 10px 0px 10px 20px;" class="pcs-item-row">
+              <div>
+                <div>
+
+
+
+                  <span style="white-space: pre-wrap;word-wrap: break-word;" class="pcs-item-desc"
+                    id="tmp_item_description">Monthly support</span>
+
+
+                </div>
+              </div>
+            </td>
+            <td rowspan="1" class="pcs-item-row lineitem-column text-align-right">
+              <span id="tmp_item_qty">1.00</span>
+            </td>
+            <td rowspan="1" class="pcs-item-row lineitem-column text-align-right">
+              <span id="tmp_item_rate">{{ amount }}</span>
+            </td>
+            <td rowspan="1" class="pcs-item-row lineitem-column lineitem-content-right text-align-right">
+              <span id="tmp_item_amount">{{ amount }}</span>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div style="width: 100%;margin-top: 1px;">
+        <div class="v-top total-number-section">
+          <div style="white-space: pre-wrap;"></div>
+
+        </div>
+        <div class="v-top total-section">
+          <table class="pcs-totals" cellspacing="0" border="0" width="100%">
+            <tbody>
+              <tr>
+                <td class="total-section-label text-align-right">Sub Total</td>
+                <td id="tmp_subtotal" class="total-section-value text-align-right">{{ amount }}</td>
+              </tr>
+
+
+
+<!--
+              <tr style="height:10px;">
+                <td class="total-section-label text-align-right">Tax Rate (0%)</td>
+                <td class="total-section-value text-align-right">0.00</td>
+              </tr>
+-->
+
+
+
+
+
+              <tr>
+                <td class="total-section-label text-align-right"><b>Total</b></td>
+                <td id="tmp_total" class="total-section-value text-align-right"><b>{{ amount }}</b></td>
+              </tr>
+
+
+
+              <tr style="height:40px;" class="pcs-balance">
+                <td class="total-section-label text-align-right"><b>Balance Due</b></td>
+                <td id="tmp_balance_due" class="total-section-value text-align-right"><b>${{ amount }}</b></td>
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+
+
+
+
+
+      <div style="clear:both;margin-top:50px;width:100%;">
+        <label style="font-size: 10pt;" id="tmp_notes_label" class="pcs-label">Notes</label><br>
+        <p style="margin-top:7px;white-space: pre-wrap;word-wrap: break-word;" class="pcs-notes">Please refer to email approval</p>
+      </div>
+
+
+
+
+
+
+
+      <div style="clear:both;margin-top:30px;width:100%;">
+        <label style="font-size: 10pt;" id="tmp_terms_label" class="pcs-label">Terms &amp; Conditions</label><br>
+        <p style="margin-top:7px;white-space: pre-wrap;word-wrap: break-word;" class="pcs-terms">
+IBAN : {{ IBAN }}
+        </p>
+      </div>
+
+      <div style="page-break-inside: avoid;">
+      </div>
+    </div>
+  </div>
+</body>

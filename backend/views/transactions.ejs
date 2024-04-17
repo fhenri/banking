@@ -1,0 +1,80 @@
+<%- include('partials/header')%>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+<!-- send back the content of the file -->
+<%- include('partials/navbar')%>
+
+<%- include('partials/modal', { parserNames })%>
+
+<main class="main">
+    <header class="header-transaction">
+        <form action="/transactions" method="GET" id="accountSelectionForm" name="accountSelectionForm">
+            <label for="account">Select Account</label>
+            <select name="account" id="account" onchange="accountSelect()">
+                <option disabled selected value> -- select an option -- </option>
+                <% accountList.forEach(function(account) { %>
+                <option value="<%=account%>" <%= (account == accountSelectedId) ? "selected" : "" %>><%=account%></option>
+                <% }); %>
+            </select>
+        </form>
+
+        <% if (accountSelectedId) { %>
+        <div id="account-details">
+            <form action="/accounts" method="POST" id="accountForm" name="accountForm">
+                <% if (accountSelected) { %>
+                <input type="hidden" value="<%= accountSelected._id %>" name="actId"/>
+                <input type="text" readonly="readonly" value="<%= accountSelected.BankName %>" name="actBankName"/>
+                <input type="text" readonly="readonly" value="<%= accountSelected.AccountNumber %>" name="actNumber"/>
+                <% } else { %>
+                <input type="text" value="Enter bank name ..." name="actBankName"/>
+                <input type="text" readonly="readonly" value="<%= accountSelectedId %>" name="actNumber"/>
+                <% } %>
+                <input type="text" value="<%= accountSelected.Description %>" name="actDescription"/>
+                <input type="text" value="<%= accountSelected.Currency %>" name="actCurrency"/>
+                <button type="submit">Update Account</button>
+            </form>
+        </div>
+        <% } %>
+
+        <div id="account-txImport">
+      		<button id="importTxModal">Import Transactions</button>
+        </div>
+    </header>
+
+    <section class="container-transaction">
+        <table width="100%">
+            <tr>
+                <th>Account Number</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Comment</th>
+                <th>Categories</th>
+                <th>Amount</th>
+                <th>&nbsp</th>
+            </tr>
+            <% transactionList.forEach(function(transaction) { %>
+            <tr class="<%= transaction.MoneyIn > 0 ? 'row-transaction-positive' : 'row-transaction-negative' %>">
+                <form action="/transactions" method="POST" id="txForm" name="txForm">
+                    <input type="hidden" value="<%= accountSelectedId %>" name="actId"/>
+                    <input type="hidden" value="<%= transaction._id %>" name="txId"/>
+                    <td class="transaction-accountnumber"><%= transaction.AccountNumber %></td>
+                    <td class="transaction-accountnumber"><%= transaction.TransactionDate.toLocaleDateString('fr-FR') %></td>
+                    <td class="transaction-accountnumber"><%= transaction.Description %></td>
+                    <td class="transaction-accountnumber">
+                        <input type="text" value="<%= transaction.Comment %>" name="txComment"</td>
+                    <td class="transaction-accountnumber">
+                    <% transaction.Categories.forEach(function(category) { %>
+                        <span class="tx-category"><%= category %></span>
+                    <% }); %><br/>
+                        <input type="text" name="txNewCategory"
+                    </td>
+                    <td class="transaction-amount"><%= Intl.NumberFormat('fr-FR').format(transaction.Amount) %></td>
+                    <td class="transaction-savebtn"><input style="display: none" type="submit"/></td>
+                </form>
+            </tr>
+            <% }); %>
+        </table>
+    </section>
+</main>
+
+<%- include('partials/footer')%>

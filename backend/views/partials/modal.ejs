@@ -1,0 +1,26 @@
+<!-- The Modal -->
+<div id="txModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" id="closeTxModal">&times;</span>
+    <h2 class="modal-title">Import a Bank Transaction File</h2>
+    <form action="/transactions/import" method="POST" id="import" enctype='multipart/form-data'>
+        <select name="txName" id="txName">
+            <%# ejs comment %>
+            <% /* %>
+            <% parsers.map((parser) => { %>
+            <option value="<%=parser.key%>"><%=parser.key%></option>
+            <% }); %>
+            <% */ %>
+            <% for (const parser of parserNames) { %>
+            <option value"<%=parser%>"><%=parser%></option>
+            <% }; %>
+        </select>
+        <input type="file" id="txFile" name="txFile" required/>
+  		<button type="submit" form="import" value="Submit">Import Transactions</button>
+    </form>
+
+  </div>
+
+</div>

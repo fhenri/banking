@@ -1,0 +1,4 @@
+Flask==3.0.0
+pandas
+pymongo==4.6.2
+ofxtools==0.9.5

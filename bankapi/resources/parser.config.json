@@ -1,0 +1,16 @@
+[
+  {
+    "bank": "Crédit Mutuel",
+    "alias": "cmut",
+    "file": "ofx",
+    "parser": "parsers.cmutofxparser",
+    "class": "CMUTOFXParser"
+  },
+  {
+    "bank": "Mauritius Commercial Bank",
+    "alias": "mcb",
+    "file": "csv",
+    "parser": "parsers.mcbcsvparser",
+    "class": "MCBCSVParser"
+  }
+]
