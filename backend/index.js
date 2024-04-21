@@ -6,8 +6,9 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 const multipart = require("./multipart");
-const Transaction = require("./models/transactions");
 const Account = require("./models/accounts");
+const Category = require("./models/categories");
+const Transaction = require("./models/transactions");
 
 const parsers = require("./parserconf");
 
@@ -41,7 +42,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/accounts", async (req, res) => {
-  const accountId = req.body.actId;
+  const { actDescription, actCurrency, accountId } = req.body;
 
   let account = await Account.findById(accountId);
   if (account == null) {
@@ -49,26 +50,42 @@ app.post("/accounts", async (req, res) => {
       _id: new mongoose.Types.ObjectId(),
       BankName: req.body.actBankName,
       AccountNumber: req.body.actNumber,
-      Description: req.body.actDescription,
-      Currency: req.body.actCurrency,
+      Description: actDescription,
+      Currency: actCurrency,
     });
   } else {
-    account.Currency = req.body.actCurrency;
-    account.Description = req.body.actDescription;
+    account.Currency = actCurrency;
+    account.Description = actDescription;
   }
   await account.save();
   res.redirect("/transactions?account=" + account.AccountNumber);
 });
 
 app.post("/transactions", async (req, res) => {
-  const accountId = req.body.actId;
-  const transaction = await Transaction.findById(req.body.txId);
-  transaction.Comment = req.body.txComment;
-  if (req.body.txNewCategory) {
-    transaction.Categories.push(req.body.txNewCategory);
+  //console.log(req.body)
+  const { actId, txId, txComment, delCategory, txNewCategory } = req.body;
+
+  const transaction = await Transaction.findById(txId);
+  transaction.Comment = txComment;
+  if (delCategory) {
+    transaction.Categories.pull(delCategory.trim());
+  }
+  if (txNewCategory) {
+    const existCategory = 
+      await Category.findOne({ CategoryName: txNewCategory }).exec();
+    if (!existCategory) {
+      const newCategory = new Category({
+        _id: new mongoose.Types.ObjectId(),
+        CategoryName: txNewCategory
+      });
+      await newCategory.save();
+    }
+
+    transaction.Categories.push(txNewCategory);
   }
   await transaction.save();
-  res.redirect("/transactions?account=" + accountId);
+  
+  res.redirect("/transactions?account=" + actId);
 });
 
 app.get("/transactions", async (req, res) => {
@@ -81,6 +98,8 @@ app.get("/transactions", async (req, res) => {
       AccountNumber: accountSelectedId,
     };
   }
+
+  const categoryList = await Category.find({ });
 
   const accountSelected = await Account.findOne({
     AccountNumber: accountSelectedId,
@@ -99,6 +118,7 @@ app.get("/transactions", async (req, res) => {
     accountSelectedId,
     transactionList,
     parserNames: parsers.parsers.keys(),
+    categoryList,
   });
 });
 
@@ -125,7 +145,6 @@ app.post(
         },
       );
 
-      console.log(fileResp);
       data = await fileResp.json();
       console.log(data);
     } catch (err) {

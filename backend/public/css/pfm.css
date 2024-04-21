@@ -11,8 +11,7 @@ a:active {
 }
 
 body {
-    font-family: "Montserrat", sans-serif;
-    color: dimgray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
     flex-flow: column;
 }
@@ -20,7 +19,7 @@ body {
 .navbar {
     width: 100%;
     height: 80px;
-    background-color: lightgray;
+    background-color: rgba(0, 0, 0, 0.054);
     border-right: 2px solid #003049;
     display: flex;
     flex-flow: row wrap;
@@ -42,16 +41,48 @@ body {
     cursor: pointer;
 }
 
+.button-import {
+    border: 2px solid #003049;
+    background-color: whitesmoke;
+    border-radius: 3px;
+    color: darkblue;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 8px;
+    padding: 12px 12px;
+    cursor: pointer;
+}
+
 .main {
     flex-direction: row;
+    padding: 10px;
 }
 
 .header-transaction {
     height: 100px;
     border-bottom: 2px solid #003049;
+    display: flex;
+    justify-content: center;
+}
+
+.account-selection {
+    margin-right: 8px;
+    padding-right: 12px;
+}
+
+.account-txImport {
+    margin-left: 8px;
+    padding-left: 12px;
 }
 
 .container-transaction {
+    padding-top: 10px;
+}
+
+#transactionTable {
+    margin: auto;
 }
 
 .row-transaction {
@@ -60,19 +91,31 @@ body {
     border-bottom: 1px solid #003049;
 }
 
-.row-transaction-negative {
+.tx-negative {
     background-color: #ffcccb;
+    padding: 2px;
+    border-radius: 20%;
 }
 
-.row-transaction-positive {
+.tx-positive {
     background-color: lightgreen;
+    padding: 2px;
+    border-radius: 20%;
+}
+
+#transactionTable td {
+    vertical-align: baseline;
 }
 
 .transaction-amount {
     text-align: right;
+    padding-right: 5px;
 }
-.transaction-savebtn {
-    background-color: white;
+
+.tx-category {
+    background-color: rgba(0, 0, 0, 0.054);
+    padding: 2px;
+    border-radius: 15%;
 }
 
 /* The Modal (background) */

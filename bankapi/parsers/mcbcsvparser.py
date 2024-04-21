@@ -14,8 +14,7 @@ current = os.path.dirname(os.path.realpath(__file__))
 # where the current directory is present.
 parent = os.path.dirname(current)
 
-# adding the parent directory to
-# the sys.path.
+# adding the parent directory to the sys.path.
 sys.path.append(parent)
 
 # now we can import the module in the parent directory.
@@ -61,7 +60,9 @@ class MCBCSVParser(bankparser.AbstractBankParser):
                     tx["AccountNumber"]    = account_number;
                     tx["TransactionDate"]  = row[0];
                     tx["ValueDate"]        = row[1];
-                    tx["_id"]              = row[2];
+                    # we need to build an id - standing order for MCB are not 
+                    # generic term repeating
+                    tx["_id"]              = f"{row[2]}-{row[6]}";
                     tx["Description"]      = row[3];
                     tx["Comment"]          = "";
                     #tx["Categories"]       = trules.get_category_for_transaction(row[3]);

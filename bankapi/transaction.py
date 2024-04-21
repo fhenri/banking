@@ -6,7 +6,6 @@ def save_transactions(transactions):
     db = MongoDBConnection.getInstance();
     try:
         db.transactions.insert_many(transactions.to_dict('records'))
-        print("saved")
         return None
         #transaction_collection.insert_many(transactions)
     except pymongo.errors.BulkWriteError as bwe:
