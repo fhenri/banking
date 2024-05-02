@@ -1,8 +1,7 @@
 import abc
 import importlib
-import json;
 import sys;
-import parserconfig;
+import parsers.parserconfig as parserconfig;
 import transaction;
 
 class AbstractBankParser():

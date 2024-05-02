@@ -1,4 +1,6 @@
-FROM python:3.10-slim-buster
+FROM python:3.12-slim-bookworm
+#FROM python:3.8-slim-buster
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
@@ -6,5 +8,7 @@ COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./ .
+
+ENV PYTHONPATH "${PYTHONPATH}:/parsers"
 
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

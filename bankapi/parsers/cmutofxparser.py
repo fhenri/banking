@@ -18,10 +18,8 @@ sys.path.append(parent)
 
 # now we can import the module in the parent directory.
 import trules;
-from bankparser import AbstractBankParser;
+from parsers.bankparser import AbstractBankParser;
 
-from datetime import datetime
-from mongodb import MongoDBConnection
 from ofxtools.Parser import OFXTree
 
 class CMUTOFXParser(AbstractBankParser):
@@ -30,7 +28,7 @@ class CMUTOFXParser(AbstractBankParser):
         Parse the csv file given by the bank.
     '''
     def parse_file(self, filename):
-        print("Import Credit Mutuel ofx file");
+        print(f"run the cmut parser with file {filename}");
         parser = OFXTree();
         with open(filename, 'rb') as bank_file:
             parser.parse(bank_file);

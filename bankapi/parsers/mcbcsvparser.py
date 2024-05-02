@@ -19,12 +19,9 @@ sys.path.append(parent)
 
 # now we can import the module in the parent directory.
 import trules;
-import bankparser;
+from parsers.bankparser import AbstractBankParser;
 
-from datetime import datetime
-from mongodb import MongoDBConnection
-
-class MCBCSVParser(bankparser.AbstractBankParser):
+class MCBCSVParser(AbstractBankParser):
 
     def parse_line (self, pattern, text) -> str:
         found = re.search(pattern, text);
@@ -36,7 +33,7 @@ class MCBCSVParser(bankparser.AbstractBankParser):
         Parse the csv file given by the bank.
     '''
     def parse_file(self, filename):
-        print(f"run the parser with file {filename}");
+        print(f"run the MCB parser with file {filename}");
         with io.open (filename, "r", encoding="utf-8") as bank_file:
             # create the csv reader and filter blank lines
             bank_reader = csv.reader(filter(lambda line: line.strip(), bank_file), delimiter=',' )

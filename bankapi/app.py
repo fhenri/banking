@@ -2,7 +2,7 @@ import json;
 import os;
 import transaction;
 
-from bankparser import AbstractBankParser;
+from parsers.bankparser import AbstractBankParser;
 from bson import json_util;
 from flask import Flask, jsonify, request;
 from mongodb import MongoDBConnection;

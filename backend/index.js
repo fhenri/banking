@@ -42,14 +42,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/accounts", async (req, res) => {
-  const { actDescription, actCurrency, accountId } = req.body;
+  const { actDescription, actCurrency, accountId, ...act} = req.body;
 
   let account = await Account.findById(accountId);
   if (account == null) {
     account = new Account({
       _id: new mongoose.Types.ObjectId(),
-      BankName: req.body.actBankName,
-      AccountNumber: req.body.actNumber,
+      BankName: act.actBankName,
+      AccountNumber: act.actNumber,
       Description: actDescription,
       Currency: actCurrency,
     });
@@ -87,6 +87,16 @@ app.post("/transactions", async (req, res) => {
   
   res.redirect("/transactions?account=" + actId);
 });
+
+app.get("/transactions.json", async (req, res) => {
+  //const data = [100, 50, 300, 40, 350, 250, 7, 14]; // assuming this is coming from the database
+  //res.json(data);
+  //res.json({a: 9, b: 20, c:30, d:8, e:12, f:3, g:7, h:14});
+
+  // db.transactions.find({},{ AccountNumber: 1, Categories: { $slice: [0, 1] }, MoneyOut: 1, MoneyIn: 1, _id: 0 })
+  const txList = await Transaction.find({}, { AccountNumber: 1, Categories: 1, MoneyOut: 1, MoneyIn: 1, _id: 0 });
+  console.log(txList);
+})
 
 app.get("/transactions", async (req, res) => {
   const accountList = await Transaction.distinct("AccountNumber");
@@ -176,6 +186,10 @@ app.get("/analysis", (req, res) => {
 
 app.get("/invoice", (req, res) => {
   res.render("invoice");
+});
+
+app.get("/statement", (req, res) => {
+  res.render("bankStatement");
 });
 
 var port = process.env.NODE_PORT || 6001;
